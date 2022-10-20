@@ -11,7 +11,7 @@ public:
         return ans;
     }
     bool sumOfNumberAndReverse(int num) {
-        for(int i=0;i<=num;i++){
+        for(int i=num/2;i<=num;i++){
             if(i + reverse(i) == num) return 1;
         }
         return 0;
