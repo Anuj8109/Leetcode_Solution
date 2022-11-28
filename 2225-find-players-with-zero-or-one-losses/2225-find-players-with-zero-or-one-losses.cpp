@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<vector<int>> findWinners(vector<vector<int>>& matches) {
         vector<int> v(1e5 + 1,0);
-        set<int> us;
+        unordered_set<int> us;
         
         for(auto i:matches){
             us.insert(i[0]);
@@ -22,8 +22,8 @@ public:
         //         else if(v[i] == 1) b.push_back(i); 
         //     }
         // }
-        // sort(a.begin(),a.end());
-        // sort(b.begin(),b.end());
+        sort(a.begin(),a.end());
+        sort(b.begin(),b.end());
         return {a,b};
     }
 };
