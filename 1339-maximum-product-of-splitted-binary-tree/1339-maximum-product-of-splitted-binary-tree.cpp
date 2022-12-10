@@ -12,10 +12,10 @@
 class Solution
 {
     public:
-        long long total = 0;
-    long long ans = 0;
+        long  total = 0;
+    long  ans = 0;
     int mod = 1e9 + 7;
-    long long totalSum(TreeNode *root)
+    long  totalSum(TreeNode *root)
     {
         if (!root) return 0;
         return root->val + totalSum(root->left) + totalSum(root->right);
@@ -23,8 +23,8 @@ class Solution
     long long helper(TreeNode *root)
     {
         if (!root) return 0;
-        long long p = helper(root->left);
-        long long q = helper(root->right);
+        long  p = helper(root->left);
+        long  q = helper(root->right);
         ans = max(ans, (total - p) *p);
         ans = max(ans, (total - q) *q);
        	// if(ans >= mod) ans = ans % mod;
