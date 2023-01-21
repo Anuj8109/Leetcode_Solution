@@ -19,10 +19,10 @@ public:
             n--;
         }
         // cout<<p->val<<endl;
-        if(p == NULL){
-            q->next = NULL;
-            return head;
-        }
+        // if(p == NULL){
+        //     q->next = NULL;
+        //     return head;
+        // }
         q = head;
         p = p->next;
         if(!p ) return head->next;
@@ -30,8 +30,6 @@ public:
             p = p->next;
             q = q->next;
         }
-        // cout<<q->val<<endl;
-        // if(q == head) return head->next;
         q->next = q->next->next;
         return head;
     }
