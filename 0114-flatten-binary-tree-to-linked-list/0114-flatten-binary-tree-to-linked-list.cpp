@@ -15,15 +15,15 @@ public:
         if(!root) return ;
         if(root->left){
             flatten(root->left);
-            auto p = root->left;
-            root->left = NULL;
-            auto temp = p;
+            auto temp = root->left;
             while(temp->right){
                 temp = temp->right;
             }
-            auto q = root->right;
-            root->right = p;
-            temp->right = q;
+            temp->right = root->right;
+            // auto q = root->right;
+            root->right = root->left;
+            root->left = NULL;
+            // temp->right = q;
         }
 
         flatten(root->right);
