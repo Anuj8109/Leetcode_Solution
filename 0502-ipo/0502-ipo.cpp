@@ -11,7 +11,7 @@ public:
             v.push_back({capital[i],profits[i]});
         }
         
-        sort(v.begin(),v.end(),fun);
+        sort(v.begin(),v.end());
         priority_queue<int> pq;
         int index = 0;
         // cout<<v[0].first<<" "<<v[0].second<<endl;
