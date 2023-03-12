@@ -13,6 +13,7 @@ public:
     ListNode* helper(ListNode* p,ListNode* q){
         if(!p) return q;
         else if(!q) return p;
+        // cout<<p->val<<" "<<q->val<<endl;
         ListNode* head = new ListNode(0);
         ListNode* temp = head;
         while(p && q){
@@ -35,9 +36,19 @@ public:
         if(n == 0) return NULL;
         // if(n == 1) return lists[0];
         ListNode* ans = lists[0];
-        for(int i=1;i<n;i++){
-            ans = helper(ans,lists[i]);
+        while(n > 1){
+            int i = 0;
+            for(i=0;i + 1<n;i+=2){
+                lists[i/2] = helper(lists[i],lists[i+1]);
+            }
+            // cout<<i<<endl;
+            if(n%2) lists[n/2] = lists[n-1];
+            n = n/2 + n%2;
+            // cout<<n<<" "<<lists[0]->val<<endl;
         }
-        return ans;
+        // for(int i=1;i<n;i++){
+        //     ans = helper(ans,lists[i]);
+        // }
+        return lists[0];
     }
 };
