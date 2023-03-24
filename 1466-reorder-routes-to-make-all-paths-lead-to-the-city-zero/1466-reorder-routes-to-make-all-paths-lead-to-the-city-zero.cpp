@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void helper(vector<vector<vector<int>>> &graph,vector<bool> &visit,int &ans,int index){
+    void helper(vector<unordered_map<int,vector<int>>> &graph,vector<bool> &visit,int &ans,int index){
         // if(visit[index]) return ;
         visit[index] = 1;
         for(auto i:graph[0][index]){
@@ -14,7 +14,7 @@ public:
         }
     }
     int minReorder(int n, vector<vector<int>>& conn) {
-        vector<vector<vector<int>>> graph(2,vector<vector<int>> (n));
+        vector<unordered_map<int,vector<int>>> graph(2);
         vector<bool> visit(n,false);
         for(auto i:conn){
             graph[1][i[0]].push_back(i[1]);
