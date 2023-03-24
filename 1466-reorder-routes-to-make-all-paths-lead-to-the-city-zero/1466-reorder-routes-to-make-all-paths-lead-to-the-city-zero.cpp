@@ -15,14 +15,10 @@ public:
     }
     int minReorder(int n, vector<vector<int>>& conn) {
         vector<vector<vector<int>>> graph(2,vector<vector<int>> (n));
-        vector<vector<int>> v1(n);
-        vector<vector<int>> v2(n);
         vector<bool> visit(n,false);
         for(auto i:conn){
             graph[1][i[0]].push_back(i[1]);
             graph[0][i[1]].push_back(i[0]);
-            // v1[i[0]].push_back(i[1]);
-            // v2[i[1]].push_back(i[0]);
         }
         int ans = 0;
         helper(graph,visit,ans,0);
