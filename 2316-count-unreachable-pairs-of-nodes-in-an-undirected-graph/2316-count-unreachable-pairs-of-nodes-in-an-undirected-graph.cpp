@@ -5,7 +5,7 @@ public:
         visit[index] = 1;
         long long ans = 1;
         for(auto i:graph[index]){
-            ans += count(graph,visit,i);
+            if(!visit[i]) ans += count(graph,visit,i);
             // ans++;
         }
         return ans;
