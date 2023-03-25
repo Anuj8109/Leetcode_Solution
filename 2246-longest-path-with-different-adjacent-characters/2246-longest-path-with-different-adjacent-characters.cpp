@@ -1,6 +1,7 @@
 class Solution {
 public:
     int helper(unordered_map<int,vector<int>> &graph,string &s,int &ans,int index){
+        if(graph.count(index) == 0) return 1;
         int current = 0;
         for(auto i:graph[index]){
             int temp = helper(graph,s,ans,i);
