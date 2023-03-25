@@ -1,13 +1,13 @@
 class Node{
 public:  
     Node* parent;
-    vector<Node*> v;
+    vector<int> v;
     char c;
     Node(char ch,Node* p){
         c = ch;
         parent = p;
     }
-    void addChild(Node* p){
+    void addChild(int p){
         v.push_back(p);
     }
 };
@@ -15,39 +15,38 @@ public:
 
 class Solution {
 public:
-    int helper(Node* head,int &ans){
+    int helper(Node* head,unordered_map<int,Node*> &m,int &ans){
         if(!head) return 0;
-        
         int current = 0;
         for(auto i:head->v){
-            int temp = helper(i,ans);
-            if(head->c != i->c){
+            auto p = m[i];
+            int temp = helper(p,m,ans);
+            if(head->c != p->c){
                 ans = max(ans,current + temp + 1);
                 current = max(current,temp);
             }
         }
         current++;
-        ans = max(ans,current);
+        // ans = max(ans,current);
         return current;
     }
+    // int createNode(vector<int> &par,string s,int index,)
     int longestPath(vector<int>& par, string s) {
-        Node* head;
-        map<int,Node*> m;
+        
+        unordered_map<int,Node*> m;
         // cout<<par.size()<<endl;
         for(int i=0;i<par.size();i++){
             m[i] = new Node(s[i],NULL);
         }
         for(int i=0;i<par.size();i++){
-            if(par[i] == -1){
-                head = m[i];
-            }else{
+            if(par[i] != -1){
                 m[i]->parent = m[par[i]];
-                m[par[i]]->addChild(m[i]);
+                m[par[i]]->addChild(i);
             }
         }
         int ans = 0;
-        auto temp = head;
-        helper(temp,ans);
+        Node* head = m[0];
+        ans = max(ans,helper(head,m,ans));
         return ans;
     }
 };
