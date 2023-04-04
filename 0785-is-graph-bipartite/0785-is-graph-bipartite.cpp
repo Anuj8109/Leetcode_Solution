@@ -8,14 +8,14 @@ public:
     }
     bool dfs(vector<vector<int>>& graph,vector<bool>& visit,int i,int s){
         if(visit[i]){
-            return s == 1 ? !v2[i] : !v1[i];
+            return s == 0 ? !v2[i] : !v1[i];
         }
         // cout<<i<<" "<<s<<endl;
         visit[i] = true;
-        s == 1 ? v1[i] = 1 : v2[i] = 1; 
-        int q = s == 1 ? 2 : 1;
+        s == 0 ? v1[i] = 1 : v2[i] = 1; 
+        // int q = s == 1 ? 2 : 1;
         for(auto j:graph[i]){
-            if(!dfs(graph,visit,j,q)) return false;
+            if(!dfs(graph,visit,j,!s)) return false;
         }
         return true;
     }
@@ -26,7 +26,7 @@ public:
         for(int i=0;i<n;i++){
             if(!visit[i]){
                 // cout<<i<<endl;
-                if(!dfs(graph,visit,i,1)) return false;
+                if(!dfs(graph,visit,i,0)) return false;
             }
         }
         return true;
