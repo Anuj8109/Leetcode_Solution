@@ -8,10 +8,6 @@ public:
         for(int k=0;k<4;k++){
             helper(grid,i + coor[k],j + coor[k + 1]);
         }
-        // helper(grid,i+1,j);
-        // helper(grid,i-1,j);
-        // helper(grid,i,j+1);
-        // helper(grid,i,j-1);
     }
     int numEnclaves(vector<vector<int>>& grid) {
         int m = grid.size(),n = grid[0].size();
