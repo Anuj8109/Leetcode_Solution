@@ -17,19 +17,15 @@ public:
         }
         auto p = helper(root->left,ans);
         auto q = helper(root->right,ans);
-        // int p  = helper(root->left,ans,1);
-        // int q  = helper(root->right,ans,0);
-        ans = max({p.first,p.second,q.first,q.second,ans});
-        // cout<<p.first<<" "<<p.second<<" "<<q.first<<" "<<q.second<<endl;
-        // cout<<p<<" "<<q<<" "<<root->val<<endl;
+        ans = max({p.first + 1,p.second,q.first,q.second + 1,ans});
         return {q.second + 1,p.first + 1};
         // return dir ? q + 1 : p + 1;
     }
     int longestZigZag(TreeNode* root) {
         int ans = 0;
         auto p = helper(root,ans);
-        cout<<p.first<<" "<<p.second<<endl;
-        ans = max({ans,p.first,p.second});
+        // cout<<p.first<<" "<<p.second<<endl;
+        // ans = max({ans,p.first,p.second});
         return ans - 1;
     }
 };
