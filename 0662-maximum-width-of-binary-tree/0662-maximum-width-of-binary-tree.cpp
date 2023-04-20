@@ -19,11 +19,11 @@ public:
         while(!q.empty()){
             int n = q.size();
             auto p = q.front();
-            long long mini = p.second;
+            int mini = p.second;
             int start,end;
             for(int i=0;i<n;i++){
                 auto p = q.front();
-                long long val = p.second - mini;
+                long val = p.second - mini;
                 auto node = p.first;
                 q.pop();
                 if(node->left) q.push({node->left,val*2 + 1});
