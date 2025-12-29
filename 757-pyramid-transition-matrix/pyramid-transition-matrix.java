@@ -1,11 +1,12 @@
 class Solution {
+    HashMap<String, Boolean> dp;
     public boolean isValid(String bottom, HashMap<String, int[]> freqMap, int index, StringBuilder sb){
-        // System.out.println(sb.toString());
         if(index == bottom.length() - 1){
             if(sb.length() == 1) return true;
             StringBuilder next = new StringBuilder();
             return isValid(sb.toString(), freqMap, 0, next);
         }
+        if(dp.containsKey(bottom)) return dp.get(bottom);
 
         String curr = bottom.substring(index, index + 2);
         if(!freqMap.containsKey(curr)) return false;
@@ -13,9 +14,13 @@ class Solution {
         for(int i=0;i<6;i++){
             if(tops[i] == 0) continue;
             sb.append((char)('A' + i));
-            if(isValid(bottom,freqMap, index + 1, sb)) return true;
+            if(isValid(bottom,freqMap, index + 1, sb)){
+                if(index == 0) dp.put(bottom, true);
+                return true;
+            }
             sb.deleteCharAt(sb.length() - 1);
         }
+        if(index == 0) dp.put(bottom, false);
         return false;
 
     }
@@ -32,6 +37,7 @@ class Solution {
             freqMap.get(block)[next - 'A']++;
             // System.out.println(freqMap.get(block)[next - 'A']);
         }
+        dp = new HashMap<>();
         StringBuilder sb = new StringBuilder();
         return isValid(bottom, freqMap, 0, sb);
     }
