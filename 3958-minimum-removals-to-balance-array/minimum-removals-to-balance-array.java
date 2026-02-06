@@ -1,10 +1,10 @@
 class Solution {
     public boolean isPossible(int[] nums, int k, int mid){
         for(int index=0;index+mid-1<nums.length;index++){
-            long mini = (long)nums[index] * k;
-            long maxi = nums[index + mid - 1];
+            // long mini = ;
+            // long maxi = nums[index + mid - 1];
             // System.out.println("TEST " +  maxi + " " + mini + " " + Long.compare(maxi, mini));
-            if(Long.compare(maxi, mini) <= 0){
+            if(Long.compare(nums[index + mid - 1], (long)nums[index] * k) <= 0){
                 return true;
             }
         }
