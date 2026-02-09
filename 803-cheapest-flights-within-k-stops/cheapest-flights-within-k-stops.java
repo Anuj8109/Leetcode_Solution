@@ -7,19 +7,24 @@ class Solution {
         }
         Queue<int[]> pq = new PriorityQueue<>((a, b) -> (Integer.compare(a[0], b[0])));
         pq.add(new int[] {0, src, k + 1});
-        boolean[][] visited = new boolean[k + 2][n + 1];
+        Integer[][] dp = new Integer[k + 2][n + 1];
+        dp[k + 1][src] = 0;
         while (!pq.isEmpty()) {
             int[] top = pq.remove();
             int price = top[0];
             int city = top[1];
             int stops = top[2];
-            if(visited[stops][city]) continue;
-            visited[stops][city] = true;
+            if(dp[stops][city] < price) continue;
+            // visited[stops][city] = true;
             if (city == dst) return price;
             if (stops > 0) {
                 Map<Integer, Integer> adj = prices.getOrDefault(city, new HashMap<>());
                 for (int a : adj.keySet()) {
-                    pq.add(new int[] {price + adj.get(a), a, stops - 1});
+                    if(dp[stops - 1][a] == null ||
+                     dp[stops - 1][a] > price + adj.get(a)) {
+                        dp[stops - 1][a] = price + adj.get(a);
+                        pq.add(new int[] {dp[stops - 1][a], a, stops - 1});
+                    }
                 }
             }
         }
