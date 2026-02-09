@@ -1,36 +1,33 @@
-class Solution {
-        public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
-        Map<Integer, Map<Integer, Integer>> prices = new HashMap<>();
-        for (int[] f : flights) {
-            if (!prices.containsKey(f[0])) prices.put(f[0], new HashMap<>());
-            prices.get(f[0]).put(f[1], f[2]);
+public class Solution {
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        int[] prices = new int[n];
+        Arrays.fill(prices, Integer.MAX_VALUE);
+        prices[src] = 0;
+        List<int[]>[] adj = new ArrayList[n];
+        for (int i = 0; i < n; i++) {
+            adj[i] = new ArrayList<>();
         }
-        Queue<int[]> pq = new PriorityQueue<>((a, b) -> (Integer.compare(a[0], b[0])));
-        pq.add(new int[] {0, src, k + 1});
-        Integer[][] dp = new Integer[k + 2][n + 1];
-        dp[k + 1][src] = 0;
-        while (!pq.isEmpty()) {
-            int[] top = pq.remove();
-            int price = top[0];
-            int city = top[1];
-            int stops = top[2];
-            if(dp[stops][city] < price) continue;
-            // visited[stops][city] = true;
-            if (city == dst) return price;
-            if (stops > 0) {
-                Map<Integer, Integer> adj = prices.getOrDefault(city, new HashMap<>());
-                for (int a : adj.keySet()) {
-                    if(dp[stops - 1][a] == null ||
-                     dp[stops - 1][a] > price + adj.get(a)) {
-                        dp[stops - 1][a] = price + adj.get(a);
-                        pq.add(new int[] {dp[stops - 1][a], a, stops - 1});
-                    }
+        for (var flight : flights) {
+            adj[flight[0]].add(new int[] { flight[1], flight[2] });
+        }
+
+        Queue<int[]> q = new LinkedList<>();
+        q.offer(new int[] { 0, src, 0 });
+
+        while (!q.isEmpty()) {
+            var curr = q.poll();
+            int cst = curr[0], node = curr[1], stops = curr[2];
+            if (stops > k) continue;
+
+            for (var neighbor : adj[node]) {
+                int nei = neighbor[0], w = neighbor[1];
+                int nextCost = cst + w;
+                if (nextCost < prices[nei]) {
+                    prices[nei] = nextCost;
+                    q.offer(new int[] { nextCost, nei, stops + 1 });
                 }
             }
         }
-        return -1;
+        return prices[dst] == Integer.MAX_VALUE ? -1 : prices[dst];
     }
-    // public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
-        
-    // }
 }
