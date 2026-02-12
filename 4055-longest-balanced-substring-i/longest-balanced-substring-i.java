@@ -1,8 +1,9 @@
 class Solution {
     public int longestBalanced(String s) {
+        int[] freq = new int[26];
         for(int len=s.length();len>1;len--){
 
-            int[] freq = new int[26];
+            Arrays.fill(freq, 0);
 
             for(int index=0;index<s.length();index++){
                 freq[s.charAt(index) - 'a']++;
