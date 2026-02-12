@@ -12,12 +12,13 @@ class Solution {
                 }
                 // int count = freq[s.charAt(index) - 'a'];
                 if(index + 1 >= len){
-                    // boolean isEqual = true;
-                    Set<Integer> unique = new HashSet<>();
-                    for(int i=0;i<26;i++){
-                        if(freq[i] != 0) unique.add(freq[i]);
+                    boolean isEqual = true;
+                    int count = freq[s.charAt(index) - 'a'];
+                    // Set<Integer> unique = new HashSet<>();
+                    for(int i=0;i<26 && isEqual;i++){
+                        if(freq[i] != 0 && count != freq[i]) isEqual = false;
                     }
-                    if(unique.size() == 1) return len;
+                    if(isEqual) return len;
                 }
             }
         }
