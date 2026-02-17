@@ -5,17 +5,7 @@ class Solution {
         // else remove first meeting and require time from count 
 
         int n = startTime.length;
-        // int[][] meetings = new int[n][2];
-
-        // for(int index=0;index<n;index++){
-        //     meetings[index][0] = startTime[index];
-        //     meetings[index][1] = endTime[index];
-        // }
-        // Comparator<int[]> comp = (int[] a, int[] b) -> {
-
-        // };
-        // Arrays.sort(meeting, )
-        Queue<int[]> rescheduleMeet = new LinkedList<>();
+        // Queue<int[]> rescheduleMeet = new LinkedList<>();
 
         int result = startTime[0];
         result = Math.max(result, eventTime - endTime[n - 1]);
@@ -23,16 +13,17 @@ class Solution {
         
         for(int index=0;index<n;index++){
             int timeTaken = endTime[index] - startTime[index];
-            rescheduleMeet.add(new int[]{endTime[index], timeTaken});
+            // rescheduleMeet.add(new int[]{endTime[index], timeTaken});
             sum += timeTaken;
             int endingLastMeet = sum;
-            if(rescheduleMeet.size() > k){
-                int[] removeMeeting = rescheduleMeet.poll();
-                sum -= removeMeeting[1];
-                endingLastMeet = removeMeeting[0] + sum;
+            if(index >= k){
+                // int[] removeMeeting = rescheduleMeet.poll();
+                // int 
+                sum -= (endTime[index - k] - startTime[index - k]);
+                endingLastMeet = endTime[index - k] + sum;
             }
             int startNextMeet = (index + 1) < n ? startTime[index + 1] : eventTime;
-            result = Math.max(result, startNextMeet -endingLastMeet);
+            result = Math.max(result, startNextMeet - endingLastMeet);
         }
         return result;
     }
